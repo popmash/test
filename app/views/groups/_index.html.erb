@@ -1,0 +1,21 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan></th>
+            <th>グループ名</th>
+            <th>紹介文</th>
+            <th colspan></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% groups.each do |group| %>
+        <tr>
+            <td><%= image_tag group.get_group_image, size: '80x80' %></td>
+            <td><%= link_to group.name, group_path(group.id) %></td>
+            <td><%= group.introduction %></td>
+            <td><%= link_to "Edit", edit_group_path(group), class: 'btn btn-success btn-sm' %></td>
+            <td><%= group.users.count %></td>
+            <% end %>
+        </tr>
+    </tbody>
+</table>

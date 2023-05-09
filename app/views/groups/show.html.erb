@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="co-md-3">
+            <%= render 'users/info', user: current_user %>
+            <%= render 'books/form', book: @book %>
+        </div>
+        <div class="col-md-8 off-set-1 mx-auto">
+            <h2>Group Detail</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan></th>
+            <th>グループ名</th>
+            <th>紹介文</th>
+            <th>メンバー</th>
+            <th colspan></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= image_tag @group.get_group_image, size: '80x80' %></td>
+            <td><%= link_to @group.name, group_path(@group.id) %></td>
+            <td><%= @group.introduction %></td>
+            <td>
+             <% @group.users.each do |member| %>
+             <%= member.name %></br>
+             <% end %>
+             </td>
+            <% if @group.owner_id == @group.users %>
+            <td><%= link_to "Edit", edit_group_path(@group), class: 'btn btn-success btn-sm' %></td>
+            <% elsif @group.users.include?(current_user) %>
+             <td><%= link_to 'Leave this group', group_path(@group), method: :delete, class: "btn btn-sm btn-danger" %></td>
+            <% else %>
+            <td><%= link_to 'Join this group', group_join_path(@group), class: 'btn btn-success btn-sm' %></td>
+            <% end %>
+            <td><%= link_to 'Notice an Event',group_new_mail_path(@group), class: "btn btn-secondary btn-sm" %></td>
+        </tr>
+    </tbody>
+</table>
+        </div>
+    </div>
+</div>
+
